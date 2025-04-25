@@ -14,14 +14,14 @@ const ProductDetail = () => {
     const product = products?.find(prod => prod._id == productId)
     console.log("Product:: ", product)
 
-    // const {data, loading, error} = useFetch(`http://localhost:3005/api/products`)
+    // const {data, loading, error} = useFetch(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
     // console.log("Data:: ", data, "Loading..", loading, "error:", error)
 
     const [wishList, setWishList] = useState([])
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -32,7 +32,7 @@ const ProductDetail = () => {
 
     const fetchProducts = async () => {
         try{
-            const res = await axios.get(`http://localhost:3005/api/products`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
             setProducts(res.data)
         } catch(error){
             console.log(error)

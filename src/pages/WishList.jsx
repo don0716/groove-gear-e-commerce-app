@@ -15,7 +15,7 @@ const WishList = () => {
     const fetchWishList = async () =>{
         setMessage("Loading...")
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
             setMessage("")
         } catch(error){
@@ -27,7 +27,7 @@ const WishList = () => {
     const fetchCart = async () => {
         try{
 
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
 

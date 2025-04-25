@@ -36,7 +36,7 @@ const ProductListing = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -45,7 +45,7 @@ const ProductListing = () => {
 
     const fetchCart = async () => {
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
         }catch(error){
             console.log(error.message)
@@ -55,7 +55,7 @@ const ProductListing = () => {
      const fetchProducts = async () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`http://localhost:3005/api/products`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
             setProducts(res.data)
             setMessage("")
         } catch(error){
@@ -66,7 +66,7 @@ const ProductListing = () => {
 
     const fetchCategories = async () => {
         try{
-            const res = await axios.get(`http://localhost:3005/api/categories`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/categories`)
             setCategories(res.data.prod)
         } catch(error){
             console.log(error)

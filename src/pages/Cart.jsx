@@ -32,7 +32,7 @@ const Cart = () => {
 
   const fetchUsers = async  () => {
         try{
-            const res = await axios.get(`http://localhost:3005/api/users`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users`)
             setUserData(res.data)
 
         }catch(error){
@@ -48,7 +48,7 @@ const Cart = () => {
         setMessage("Loading...")
         try{
 
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
             setMessage("")
@@ -61,7 +61,7 @@ const Cart = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -70,7 +70,7 @@ const Cart = () => {
 
     const fetchAddresses = async () => {
         try{
-            const res = await axios.get(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/address`)
+            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/address`)
             console.log(res.data)
         }catch(error){
             console.log(error)
@@ -93,14 +93,6 @@ const Cart = () => {
             }, 3000)
         }
     }, [message])
-
-    // useEffect(() => {
-    //     if(checkout) {
-    //         setMessage("Order Placed Successfully!")
-    //     } else {
-    //         setCheckout(false)
-    //     }
-    // }, [checkout])
 
     return (
         <div>

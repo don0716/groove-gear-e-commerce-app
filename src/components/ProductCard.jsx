@@ -14,7 +14,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
       // Add to wishList
       try{
         setMessage("")
-        const res = await axios.post(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishlist`,{
+        const res = await axios.post(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishlist`,{
           productId: prodId
         } )
         setWishList(prev => [...prev, product])
@@ -27,7 +27,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
     } else {
       try{
         setMessage("")
-        const res = await axios.delete(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
+        const res = await axios.delete(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
 
         setMessage("Successfully Deleted from WishList!")
        
@@ -46,7 +46,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
     try{
       setMessage("")
       if(isAddToCartBtn) {
-        await axios.post(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/cart`, {
+        await axios.post(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`, {
           productId: prodId
         })
         setMessage("Added To Cart")
@@ -57,7 +57,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
       } else {
         // Quantity increase or decrease or delete altogether.
         
-        await axios.delete(`http://localhost:3005/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
+        await axios.delete(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
         setMessage("Deleted from Cart")
   
         setCart(prevCart => prevCart.filter(item => item.product._id !== product._id) )
