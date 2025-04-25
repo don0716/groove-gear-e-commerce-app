@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
 import RatingComponent from "./RatingComponent"
 import { Link } from "react-router-dom"
 import axios from "axios"
 
-const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPage = false, isListingPage = false, isCartPage = false, wishList, setWishList, quantity=0, setMessage}) => {
+const ProductCard = (props) => {
+
+  const {product, cart, setCart, isDetailPage = false, isWishListPage = false, isListingPage = false, isCartPage = false, wishList, setWishList, quantity=0, setMessage} = props
+
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
 
   const isProductInWishList = wishList.some(item => item._id === product._id)
   const isProdInCart = cart.some(item => item.product._id === product._id)
@@ -11,31 +14,27 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
 
   const handleWishList = async (prodId) => {
     if(!isProductInWishList){
-      // Add to wishList
       try{
         setMessage("")
-        const res = await axios.post(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishlist`,{
+        const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist`,{
           productId: prodId
         } )
         setWishList(prev => [...prev, product])
         setMessage("Added to WishList!")
         
       }catch(error) {
-        setMessage("Failed to Add To WishList!")
-        console.log(error.message)
+        setMessage("Failed to Add To WishList!", error.message)
       }
     } else {
       try{
         setMessage("")
-        const res = await axios.delete(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
+        await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
 
         setMessage("Successfully Deleted from WishList!")
-       
         setWishList(prev => prev.filter(item => item._id !== prodId))
         
       }catch(error) {
-        setMessage("Failed to Delete from Wishlist")
-        console.log(error.message)
+        setMessage("Failed to Delete from Wishlist", error.message)
       }
     }
     
@@ -46,7 +45,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
     try{
       setMessage("")
       if(isAddToCartBtn) {
-        await axios.post(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`, {
+        await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`, {
           productId: prodId
         })
         setMessage("Added To Cart")
@@ -55,18 +54,15 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
   
         
       } else {
-        // Quantity increase or decrease or delete altogether.
-        
-        await axios.delete(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
+        await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
         setMessage("Deleted from Cart")
   
         setCart(prevCart => prevCart.filter(item => item.product._id !== product._id) )
   
       }
     } catch(error){
-      setMessage("Failed to delete from Cart")
+      setMessage("Failed to delete from Cart", error.message)
       
-      console.log(error)
     }
 
   }
@@ -75,8 +71,8 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
                       <div>
                         {
                           isListingPage && (
-                            <div className="card text-center flex-fill" >
-                        <div className="position-relative">
+                            <div className="card text-center h-100 d-flex flex-column"  >
+                        <div className="position-relative" >
                            <div onClick={() => handleWishList(product._id)} style={{cursor: "pointer"}} className="position-absolute top-0 end-0 py-1 px-2">
                             {isProductInWishList ? <i className='bi bi-heart-fill text-danger'></i> : <i className='bi bi-heart'></i> }  
                            </div>
@@ -123,7 +119,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
                         {
                           (isWishListPage) && (
 
-                            <div className="card text-center flex-fill m-2" >
+                            <div className="card text-center h-100 d-flex flex-column" >
                         <div>
 
                           <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5"  alt={`${product.name} Image`} />
@@ -145,13 +141,13 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
 
 {
                           isCartPage && (
-                            <div className="card text-center flex-fill m-2" >
+                            <div className="card text-center h-100 d-flex flex-column m-2" >
                         <div className="position-relative">
                         <div className="position-absolute top-0 end-0 p-4">
                         <span className="badge text-bg-danger">{quantity}</span>
                         </div>
 
-                          <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5"  alt={`${product.name} Image`} />
+                          <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5" style={{objectFit: "contain"}}  alt={`${product.name} Image`} />
 
                         </div>
                         <div className="d-flex flex-column">
@@ -159,6 +155,7 @@ const ProductCard = ({product, cart, setCart, isDetailPage = false, isWishListPa
                           <RatingComponent isDisplay={true} ratingValue={product.rating} />
                           </div>
                             <h5>₹ {product.price}</h5>
+                            <p>{product.name}</p>
                             <button onClick={() => handleAddToCart(product._id)} className="btn btn-warning my-2 mx-2">Remove From Cart</button>
                             <button onClick={() => handleWishList(product._id)} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{isProductInWishList ? "Remove from WishList" : "Move to Wishlist"}</button>
                         </div>

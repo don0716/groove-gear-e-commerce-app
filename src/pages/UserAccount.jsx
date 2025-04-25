@@ -6,7 +6,6 @@ const UserAccount = () => {
     const [cart, setCart] = useState([])
     const [wishList, setWishList] = useState([])
     const [userData, setUserData] = useState([])
-    // const [defaultAddress, setDefaultAddress] = useState([])
     const [message, setMessage] = useState("")
     const [addressFormData, setAddressFormData] = useState({
         name: "",
@@ -16,10 +15,10 @@ const UserAccount = () => {
         pincode: "",
         phone: ""
     })
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    // console.log("userData:: ", userData.data)
+    const backendUrl = process.env.REACT_APP_BACKEND_URL
 
-    // Do for one User for now.
+    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
+    
     const user = userData.data?.find(user => user.name === "Donovan Monteiro")
     console.log("user:: ", user)
 
@@ -30,7 +29,7 @@ const UserAccount = () => {
 
     const fetchUsers = async  () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users`)
+            const res = await axios.get(`${backendUrl}/api/users`)
             setUserData(res.data)
 
         }catch(error){
@@ -43,7 +42,7 @@ const UserAccount = () => {
 const fetchCart = async () => {
         try{
 
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
 
@@ -54,7 +53,7 @@ const fetchCart = async () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -65,7 +64,7 @@ const fetchCart = async () => {
         console.log("Address:: ", addressId)
         setMessage("Setting Default Address...")
         try{
-            const res = await axios.patch(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/default-address`, {
+            await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/default-address`, {
                 addressId
             })
             fetchUsers()
@@ -93,7 +92,7 @@ const fetchCart = async () => {
         console.log(addressFormData)
         setMessage("Loading...")
         try{
-            const res = await axios.post(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/address`, 
+            const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`, 
                 addressFormData)
             console.log(res.data)
             setAddressFormData({
@@ -117,7 +116,7 @@ const fetchCart = async () => {
     const handleDeleteAddress = async (addressId) => {
         setMessage("Loading...")
         try{
-            const res = await axios.delete(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
+            const res = await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
             fetchUsers()
             setMessage("Deleted Address Successfully!")
 
@@ -209,7 +208,7 @@ const fetchCart = async () => {
                         ) : "Login To Get the user data."
                     }
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 my-2">
                     <div className="card">
                         <div className="card-body">
                             <h5 className="text-center">Add Address</h5>

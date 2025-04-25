@@ -10,10 +10,6 @@ const ProductListing = () => {
     const [products, setProducts] = useState([])
     const [wishList, setWishList] = useState([])
     const [categories, setCategories] = useState([])
-    // const [cart, setCart] = useState([{
-    //     product: "",
-    //     quantity: 0
-    // }])
     const [cart, setCart] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [searchInstruments, setSearchInstruments] = useState("")
@@ -23,61 +19,51 @@ const ProductListing = () => {
         rating: 0,
         categories: []
     })
-    console.log("cart quantity count:: ", cart.reduce((acc, curr) => curr.quantity + acc, 0 ) )
-    console.log("cart length:: ", cart.length) 
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    const wishListValue = wishList.length
     const [message, setMessage] = useState("")
 
-
-    // console.log("wishList:: , ", wishList)
-    // console.log("Cart:: ", cart)
-    // console.log("SearchInstruments:: ", searchInstruments)
+    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
+    const wishListValue = wishList.length
+    const backendUrl = process.env.REACT_APP_BACKEND_URL
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
-            console.log(error)
+            setMessage(error.message)
         }
     }
 
     const fetchCart = async () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
         }catch(error){
-            console.log(error.message)
+            setMessage(error.message)
         }
     }
 
      const fetchProducts = async () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
+            const res = await axios.get(`${backendUrl}/api/products`)
             setProducts(res.data)
             setMessage("")
         } catch(error){
-            setMessage("Error Fetching Products!")
-            console.log(error)
+            setMessage("Error Fetching Products!, ERROR:: ", error.message)
         }
     }
 
     const fetchCategories = async () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/categories`)
+            const res = await axios.get(`${backendUrl}/api/categories`)
             setCategories(res.data.prod)
         } catch(error){
-            console.log(error)
+            setMessage(error.message)
         }
     }
-    console.log("Products:: ", products)
-    console.log("categories:: ", categories)
-    console.log("----------")
 
-
-    // Handle all filters and search component here.
+    // Handles all filters.
     const handlefilters = () => {
         let filtered = [...products]
         
@@ -102,7 +88,6 @@ const ProductListing = () => {
         if(searchInstruments !== "") {
             filtered = filtered.filter(prod => prod.name.toLowerCase().includes(searchInstruments.toLowerCase()) || prod.category.name.toLowerCase().includes(searchInstruments.toLowerCase())  )
         }
-        // console.log("Filtered:: ", filtered)
 
         setFilteredProducts(filtered)
     }
@@ -113,7 +98,6 @@ const ProductListing = () => {
          fetchCart()
          fetchWishList()
     }, [])
-    console.log("cart listing", cart)
 
     useEffect(() => {
         handlefilters()
@@ -121,7 +105,7 @@ const ProductListing = () => {
 
     useEffect(() => {
         if(message.length > 0 ){
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 setMessage("")
             }, 3000)
         }
@@ -135,39 +119,43 @@ const ProductListing = () => {
 
                 <div className="row">
                     <div className="col-md-2 py-4">
-                    <FilterComponent filter={filter} setFilter={setFilter} categories={categories} />
-                        
+                        <div className="d-md-none mb-2">
+                            <button className="btn btn-secondary w-100"  data-bs-toggle="collapse"
+                            data-bs-target="#mobileFilter"
+                            aria-expanded="false"
+                            aria-controls="mobileFilter" >Toggle Filters</button>
+                        </div>
+                        <div className="collapse d-md-block" id="mobileFilter">
+                         <FilterComponent filter={filter} setFilter={setFilter} categories={categories} />
 
+                        </div>
+                      
                     </div>
                     <div className="col-md-10 py-4">
-
-                        <div>
-                            <h4 className="text-center">Showing All Instruments </h4>
+                        <div className="products-header">
+                            <h4 className="text-center">Showing All Products</h4>
                         </div>
-                        <div>
-                        {
-                    message === "" ? (
-                        
-                            <div className="py-4"></div>
-                        
-                    ) : (
-                        <div class="alert alert-secondary container" role="alert">
-                    {message}
-                </div>
-                    )
-                }
+                        <div className="message-display-section">
+                        {message === "" ? (
+                            <div className="py-4"></div>) : (
+                                <div class="alert alert-secondary container" role="alert">
+                            {message}
+                            </div>
+                            )}
                         </div>
 
                         <div className="row">
                             {
-                                filteredProducts.length > 0 ? (
+                                filteredProducts.length  > 0 ? (
                                     filteredProducts.map(product => (
                                         <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
                                             <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
                                         </div>
                                     ))
                                 ) : <div className="d-flex justify-content-center align-items-center">
-                                    <p>No Products Found</p>
+                                    {
+                                        message === "Loading..." ? "" : <p>No Products Found</p>
+                                    }
                                 </div>
                             }
                         </div>

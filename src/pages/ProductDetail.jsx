@@ -9,19 +9,14 @@ import RatingComponent from "../components/RatingComponent"
 
 const ProductDetail = () => {
     const [products, setProducts] = useState()
-    // Impletement fetch and fetch in case you directly land on page also.
     const {productId} = useParams()
     const product = products?.find(prod => prod._id == productId)
-    console.log("Product:: ", product)
-
-    // const {data, loading, error} = useFetch(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
-    // console.log("Data:: ", data, "Loading..", loading, "error:", error)
-
     const [wishList, setWishList] = useState([])
+    const backendUrl = process.env.REACT_APP_BACKEND_URL
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -32,7 +27,7 @@ const ProductDetail = () => {
 
     const fetchProducts = async () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/products`)
+            const res = await axios.get(`${backendUrl}/api/products`)
             setProducts(res.data)
         } catch(error){
             console.log(error)

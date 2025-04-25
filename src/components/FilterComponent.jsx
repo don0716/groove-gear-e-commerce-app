@@ -1,4 +1,4 @@
-import RatingComponent from "./RatingComponent"
+
 const FilterComponent = ({filter, setFilter, categories}) => {
     
 
@@ -16,16 +16,12 @@ const FilterComponent = ({filter, setFilter, categories}) => {
 
         setFilter(prevState => ({
             ...prevState,
-            categories:  checked ? [...prevState.categories, value] //Add if checked
+            categories:  checked ? [...prevState.categories, value] //Adds if checked
             : prevState.categories.filter(cat => cat != value)
         }))
 
 
     }
-
-
-    console.log("Filter::" ,filter)
-
 
     return (
         <div className="card p-2">
@@ -39,16 +35,13 @@ const FilterComponent = ({filter, setFilter, categories}) => {
                             </div>
                       </div>
  
-                        {/* Price Range Filter */}
                         <div className="card px-2 py-2">
                             <label htmlFor="priceRange" className="form-label text-center"><p className="py-0.5">Set Price</p> <input className="form-control text-center" type="number"  onChange={(e) => setFilter({...filter, priceRange: e.target.value })} value={filter.priceRange} /> </label>
                             <input type="range" className="form-range" min="1000" max="150000" onChange={handlePriceRange} step="500" id="priceRange" value={filter.priceRange}></input>
                         </div>
 
                         <div className="card my-2 p-2 text-center">
-                            
                             <p>Sort By Price</p>
-                            
                             <div>
                                 <input type="radio" name="sortByPrice" value="lowToHigh" onChange={(e) => setFilter({...filter, sortByPrice: e.target.value })} checked={filter.sortByPrice === "lowToHigh"}  />
                                 <label htmlFor="sortByPrice" className="form-label px-2">Low to High</label>

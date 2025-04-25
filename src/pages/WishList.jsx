@@ -10,12 +10,14 @@ const WishList = () => {
     const [cart, setCart] = useState([])
     const [message, setMessage] = useState("")
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL
+
     const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
 
     const fetchWishList = async () =>{
         setMessage("Loading...")
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
             setMessage("")
         } catch(error){
@@ -27,7 +29,7 @@ const WishList = () => {
     const fetchCart = async () => {
         try{
 
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
 
@@ -56,6 +58,8 @@ const WishList = () => {
             <Header wishListValue={wishList.length} cartValue={cartValue} />
             <div className="container">
 
+                <h1 className="text-center my-2">Wishlist ({`${wishList.length}`})</h1>
+
             <div className="pt-2">
                         {
                     message === "" ? (
@@ -73,7 +77,7 @@ const WishList = () => {
            <div className="row">
            {
             wishList.map(item => (
-                <div className="col-md-4">
+                <div className="col-md-3">
                      <ProductCard
                         isWishListPage={true}
                         setMessage={setMessage}

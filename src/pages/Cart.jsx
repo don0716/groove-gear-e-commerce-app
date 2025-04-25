@@ -13,9 +13,9 @@ const Cart = () => {
     const [message, setMessage] = useState("")
     const [checkout, setCheckout] = useState(false)
 
-    console.log("cart:: , ", cart)
+    const backendUrl = process.env.REACT_APP_BACKEND_URL
+    
     const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-
     const totalProductsPrice = cart.reduce((acc, curr) => (curr.product.price * curr.quantity) + acc , 0 )
     const discount = totalProductsPrice === 0 ? 0 : totalProductsPrice < 10000 ? 500 : totalProductsPrice < 20000 ? 1000 : totalProductsPrice < 30000 ? 2000 : totalProductsPrice > 40000 ? 3000 : 0
 
@@ -32,7 +32,7 @@ const Cart = () => {
 
   const fetchUsers = async  () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users`)
+            const res = await axios.get(`${backendUrl}/api/users`)
             setUserData(res.data)
 
         }catch(error){
@@ -48,7 +48,7 @@ const Cart = () => {
         setMessage("Loading...")
         try{
 
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
             setMessage("")
@@ -61,7 +61,7 @@ const Cart = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -70,7 +70,7 @@ const Cart = () => {
 
     const fetchAddresses = async () => {
         try{
-            const res = await axios.get(`https://groove-gear-ecommerce-backend.vercel.app/api/users/68073e3381a7d2e650b55871/address`)
+            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`)
             console.log(res.data)
         }catch(error){
             console.log(error)
