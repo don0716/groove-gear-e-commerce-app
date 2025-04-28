@@ -66,7 +66,7 @@ const ProductCard = (props) => {
     return (
                       <div>
                         {
-                          isListingPage && (
+                          (isListingPage && product) && (
                             <div className="card text-center h-100 d-flex flex-column"  >
                         <div className="position-relative" >
                            <div onClick={() => handleWishList(product._id)} style={{cursor: "pointer"}} className="position-absolute top-0 end-0 py-1 px-2">
