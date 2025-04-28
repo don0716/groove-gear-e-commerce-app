@@ -21,8 +21,8 @@ const ProductListing = () => {
     })
     const [message, setMessage] = useState("")
 
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    const wishListValue = wishList.length
+    const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
+    const wishListValue = wishList?.length
     const backendUrl = process.env.REACT_APP_BACKEND_URL
 
     const fetchWishList = async () =>{
