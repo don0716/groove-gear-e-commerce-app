@@ -27,13 +27,12 @@ const Cart = () => {
     
     const user = userData.data?.find(user => user.name === "Donovan Monteiro")
     const defaultAddress = user?.addresses.find(add => add._id.toString() === user?.defaultAddressId?.toString())
-    console.log("user::", user)
-    console.log("defaultAddressData:: ", defaultAddress)
 
   const fetchUsers = async  () => {
         try{
             const res = await axios.get(`${backendUrl}/api/users`)
             setUserData(res.data)
+            // setMessage("")
 
         }catch(error){
             console.log(error)
@@ -64,7 +63,7 @@ const Cart = () => {
             const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
-            console.log(error)
+            setMessage("Error fetching Wishlist!")
         }
     }
 
@@ -83,8 +82,6 @@ const Cart = () => {
         fetchAddresses()
         fetchUsers()
     }, [])
-    console.log("CHECKOUT:: ", checkout)
-    console.log("message:: ", message)
 
     useEffect(() => {
         if(message.length > 0 ){

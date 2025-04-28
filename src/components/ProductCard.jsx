@@ -11,11 +11,10 @@ const ProductCard = (props) => {
   const isProductInWishList = wishList.some(item => item._id === product._id)
   const isProdInCart = cart.some(item => item.product._id === product._id)
 
-
   const handleWishList = async (prodId) => {
     if(!isProductInWishList){
       try{
-        setMessage("")
+        setMessage("Loading...")
         const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist`,{
           productId: prodId
         } )
@@ -27,7 +26,7 @@ const ProductCard = (props) => {
       }
     } else {
       try{
-        setMessage("")
+        setMessage("Loading...")
         await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
 
         setMessage("Successfully Deleted from WishList!")
@@ -41,9 +40,8 @@ const ProductCard = (props) => {
   }
 
   const handleAddToCart = async (prodId, isAddToCartBtn = false) => {
-    
     try{
-      setMessage("")
+      setMessage("Loading...")
       if(isAddToCartBtn) {
         await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`, {
           productId: prodId
@@ -51,9 +49,8 @@ const ProductCard = (props) => {
         setMessage("Added To Cart")
 
           setCart(prev => [...prev, {product: product, quantity: 1}])
-  
-        
       } else {
+        setMessage("Loading...")
         await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
         setMessage("Deleted from Cart")
   
@@ -62,7 +59,6 @@ const ProductCard = (props) => {
       }
     } catch(error){
       setMessage("Failed to delete from Cart", error.message)
-      
     }
 
   }
@@ -80,7 +76,7 @@ const ProductCard = (props) => {
                              <RatingComponent isDisplay={true} ratingValue={product.rating} />
                            </div>
 
-                          <Link to={`/products/${product._id}`} > 
+                          <Link to={`/products/${product._id}`}> 
                           <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5" style={{objectFit: "contain"}} alt={`${product.name} Image`} />
                           </Link>
                         </div>
@@ -108,7 +104,7 @@ const ProductCard = (props) => {
                           <RatingComponent isDisplay={true} ratingValue={product.rating} />
                           </p>
                             <button onClick={() => handleWishList(product._id)} className="btn btn-warning my-2">{isProductInWishList ? "Remove From WishList" : "Add To WishList"}</button>
-                            <button onClick={() => handleAddToCart()} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
+                            <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
                         </div>
                         
                     
@@ -164,9 +160,6 @@ const ProductCard = (props) => {
                       </div>
                           )
                         }
-
-
-
 
                       </div>
     )

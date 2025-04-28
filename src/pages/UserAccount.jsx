@@ -16,24 +16,19 @@ const UserAccount = () => {
         phone: ""
     })
     const backendUrl = process.env.REACT_APP_BACKEND_URL
-
     const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    
     const user = userData.data?.find(user => user.name === "Donovan Monteiro")
-    console.log("user:: ", user)
-
     const defaultAddress = user?.addresses?.find(add => add._id === user.defaultAddressId)
-    console.log("Default Addrewss:: ", defaultAddress)
-
-
 
     const fetchUsers = async  () => {
+        setMessage("Loading...")
         try{
             const res = await axios.get(`${backendUrl}/api/users`)
             setUserData(res.data)
+            setMessage("")
 
         }catch(error){
-            console.log(error)
+            setMessage("Failed to get user Data")
         }
     }
     
@@ -41,13 +36,10 @@ const UserAccount = () => {
 
 const fetchCart = async () => {
         try{
-
             const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
-            // console.log(res.data)
             setCart(res.data.cartItems)
-
         }catch(error){
-            console.log(error)
+            setMessage("Error!")
         }
     }
 
@@ -56,12 +48,11 @@ const fetchCart = async () => {
             const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
-            console.log(error)
+            setMessage("Error")
         }
     }
 
     const handleDefaultAddress = async (addressId) => {
-        console.log("Address:: ", addressId)
         setMessage("Setting Default Address...")
         try{
             await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/default-address`, {
@@ -69,11 +60,9 @@ const fetchCart = async () => {
             })
             fetchUsers()
             setMessage("Changed Default Address!")
-            
 
         }catch(error) {
             setMessage("Some Error Occured!")
-            console.log(error)
         }
     }
 
@@ -89,7 +78,6 @@ const fetchCart = async () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        console.log(addressFormData)
         setMessage("Loading...")
         try{
             const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`, 
@@ -106,23 +94,20 @@ const fetchCart = async () => {
             setMessage("Address Added Successfully!")
             fetchUsers()
             
-
         }catch(error){
             setMessage("Failed to Add Address!")
-            console.log(error)
         }
     }
 
     const handleDeleteAddress = async (addressId) => {
         setMessage("Loading...")
         try{
-            const res = await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
+            await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
             fetchUsers()
             setMessage("Deleted Address Successfully!")
 
         }catch(error){
             setMessage("Failed to Delete Address!")
-            console.log(error)
         }
 
     }
@@ -139,7 +124,6 @@ const fetchCart = async () => {
                 setMessage("")
             }, 2000)
         }
-
     }, [message])
 
 
