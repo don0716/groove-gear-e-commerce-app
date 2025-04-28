@@ -146,7 +146,7 @@ const ProductListing = () => {
 
                         <div className="row">
                             {
-                                filteredProducts?.length  > 0 ? (
+                                (filteredProducts?.length  > 0 && products) ? (
                                     filteredProducts?.map(product => (
                                         <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
                                             <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
