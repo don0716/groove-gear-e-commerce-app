@@ -8,8 +8,8 @@ const ProductCard = (props) => {
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL
 
-  const isProductInWishList = wishList.some(item => item._id === product._id)
-  const isProdInCart = cart.some(item => item.product._id === product._id)
+  const isProductInWishList = wishList?.some(item => item._id === product._id)
+  const isProdInCart = cart?.some(item => item.product._id === product._id)
 
   const handleWishList = async (prodId) => {
     if(!isProductInWishList){

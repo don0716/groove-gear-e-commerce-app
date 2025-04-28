@@ -12,7 +12,7 @@ const WishList = () => {
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL
 
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
+    const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
 
     const fetchWishList = async () =>{
         setMessage("Loading...")

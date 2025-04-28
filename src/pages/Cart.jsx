@@ -15,8 +15,8 @@ const Cart = () => {
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL
     
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    const totalProductsPrice = cart.reduce((acc, curr) => (curr.product.price * curr.quantity) + acc , 0 )
+    const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
+    const totalProductsPrice = cart?.reduce((acc, curr) => (curr.product.price * curr.quantity) + acc , 0 )
     const discount = totalProductsPrice === 0 ? 0 : totalProductsPrice < 10000 ? 500 : totalProductsPrice < 20000 ? 1000 : totalProductsPrice < 30000 ? 2000 : totalProductsPrice > 40000 ? 3000 : 0
 
     const deliveryCharges = totalProductsPrice < 10000 && totalProductsPrice > 0 ? 500 : 0
@@ -25,14 +25,13 @@ const Cart = () => {
 
     const [userData, setUserData] = useState([])
     
-    const user = userData.data?.find(user => user.name === "Donovan Monteiro")
+    const user = userData?.data?.find(user => user.name === "Donovan Monteiro")
     const defaultAddress = user?.addresses.find(add => add._id.toString() === user?.defaultAddressId?.toString())
 
   const fetchUsers = async  () => {
         try{
             const res = await axios.get(`${backendUrl}/api/users`)
             setUserData(res.data)
-            // setMessage("")
 
         }catch(error){
             console.log(error)

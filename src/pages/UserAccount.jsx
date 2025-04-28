@@ -16,8 +16,8 @@ const UserAccount = () => {
         phone: ""
     })
     const backendUrl = process.env.REACT_APP_BACKEND_URL
-    const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
-    const user = userData.data?.find(user => user.name === "Donovan Monteiro")
+    const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
+    const user = userData?.data?.find(user => user.name === "Donovan Monteiro")
     const defaultAddress = user?.addresses?.find(add => add._id === user.defaultAddressId)
 
     const fetchUsers = async  () => {
