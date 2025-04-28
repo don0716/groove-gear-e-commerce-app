@@ -54,7 +54,7 @@ const WishList = () => {
 
     return (
         <div>
-            <Header wishListValue={wishList.length} cartValue={cartValue} />
+            <Header wishListValue={wishList?.length} cartValue={cartValue} />
             <div className="container">
 
                 <h1 className="text-center my-2">Wishlist ({`${wishList.length}`})</h1>

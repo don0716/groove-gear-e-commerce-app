@@ -17,7 +17,7 @@ const FilterComponent = ({filter, setFilter, categories}) => {
         setFilter(prevState => ({
             ...prevState,
             categories:  checked ? [...prevState.categories, value] //Adds if checked
-            : prevState.categories.filter(cat => cat != value)
+            : prevState.categories.filter(cat => cat !== value)
         }))
 
 

@@ -11,7 +11,6 @@ const Cart = () => {
     const [wishList, setWishList] = useState([])
     const [isOrderPlaced, setIsOrderPlaced] = useState(false)
     const [message, setMessage] = useState("")
-    const [checkout, setCheckout] = useState(false)
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL
     
@@ -91,7 +90,7 @@ const Cart = () => {
 
     return (
         <div>
-            <Header cartValue={cartValue} wishListValue={wishList.length} />
+            <Header cartValue={cartValue} wishListValue={wishList?.length} />
             <div className="bg-light">
 
                 <h2 className="text-center py-2">
@@ -219,7 +218,6 @@ const Cart = () => {
                                             <p>{defaultAddress?.street}, {defaultAddress?.state} | pincode: {defaultAddress?.pincode}</p>
                                 <p><strong>Phone:</strong> {defaultAddress?.phone}</p>
                                 <button onClick={() => {
-                                    setCheckout(true)
                                     setMessage("Order Placed Successfully!")
                                     setCart([])
                                 } }  className="btn btn-primary">Checkout</button>

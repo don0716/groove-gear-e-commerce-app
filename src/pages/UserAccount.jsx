@@ -18,7 +18,7 @@ const UserAccount = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
     const user = userData?.data?.find(user => user.name === "Donovan Monteiro")
-    const defaultAddress = user?.addresses?.find(add => add._id === user.defaultAddressId)
+    // const defaultAddress = user?.addresses?.find(add => add._id === user.defaultAddressId)
 
     const fetchUsers = async  () => {
         setMessage("Loading...")
@@ -129,7 +129,7 @@ const fetchCart = async () => {
 
     return (
         <div>
-            <Header cartValue={cartValue} wishListValue={wishList.length} />
+            <Header cartValue={cartValue} wishListValue={wishList?.length} />
             <div className="container  py-2"> 
             <h2 className="text-center">User Account</h2>
 

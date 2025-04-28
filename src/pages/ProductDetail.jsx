@@ -8,7 +8,7 @@ import ProductCard from "../components/ProductCard"
 const ProductDetail = () => {
     const [products, setProducts] = useState()
     const {productId} = useParams()
-    const product = products?.find(prod => prod._id == productId)
+    const product = products?.find(prod => prod._id === productId)
     const [wishList, setWishList] = useState([])
     const [cart, setCart] = useState([])
     const backendUrl = process.env.REACT_APP_BACKEND_URL

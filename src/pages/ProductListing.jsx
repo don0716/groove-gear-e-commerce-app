@@ -105,7 +105,7 @@ const ProductListing = () => {
 
     useEffect(() => {
         if(message.length > 0 ){
-            const timer = setTimeout(() => {
+            setTimeout(() => {
                 setMessage("")
             }, 3000)
         }

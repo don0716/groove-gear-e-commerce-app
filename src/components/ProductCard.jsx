@@ -15,7 +15,7 @@ const ProductCard = (props) => {
     if(!isProductInWishList){
       try{
         setMessage("Loading...")
-        const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist`,{
+        await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishlist`,{
           productId: prodId
         } )
         setWishList(prev => [...prev, product])
@@ -83,7 +83,7 @@ const ProductCard = (props) => {
                         <div className="card-body d-flex flex-column">
                             <h3 className="card-title">{product.name}</h3>
                             <p className="card-text">{product.name}</p> 
-                            <p>{product.category.name}</p>
+                            <p>{product?.category.name}</p>
                             <p><strong>₹ {product.price}</strong></p>
                             <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
                         </div>

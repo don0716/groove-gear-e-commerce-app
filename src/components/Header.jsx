@@ -21,7 +21,7 @@ const Header = ({setSearchInstruments, cartValue, wishListValue, isListingPage =
                         
                         <Link className="mx-3 position-relative text-light" to={`/cart`} style={{textDecoration: "none"}} ><i className="bi bi-cart"></i> Cart<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">{cartValue}<span className="visually-hidden"></span></span></Link>
 
-                        <Link className="px-2  position-relative text-white" to={`/useraccount`} style={{textDecoration: "none"}} ><i className="bi bi-person-circle"></i> Account </Link>
+                        <Link className="px-2  position-relative text-white" to={`/useraccount`} style={{textDecoration: "none"}} ><i className="bi bi-person-circle"></i> </Link>
                     </div>
                     
                </div>
