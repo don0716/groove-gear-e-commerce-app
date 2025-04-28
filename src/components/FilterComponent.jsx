@@ -65,7 +65,7 @@ const FilterComponent = ({filter, setFilter, categories}) => {
                             <p className="text-center">Category</p>
 
                                 {
-                                    categories.map(cat => (
+                                    categories?.map(cat => (
                                        <div key={`${cat._id}`}>
                                            <input checked={filter.categories.includes(cat.name)} onChange={handleCategoryInput} type="checkbox" value={`${cat.name}`} name={`cat.name`} className="mx-2" /> {cat.name}
                                        </div>
