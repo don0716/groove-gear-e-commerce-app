@@ -42,7 +42,6 @@ const WishList = () => {
         fetchWishList()
         fetchCart()
     }, [])
-    console.log("wishLIst", wishList)
 
     useEffect(() => {
         if(message.length > 0 ){
@@ -67,7 +66,7 @@ const WishList = () => {
                             <div className="py-4"></div>
                         
                     ) : (
-                        <div class="alert alert-secondary container" role="alert">
+                        <div className="alert alert-secondary container" role="alert">
                     {message}
                 </div>
                     )
@@ -77,7 +76,7 @@ const WishList = () => {
            <div className="row">
            {
             wishList.map(item => (
-                <div className="col-md-3">
+                <div key={item._id} className="col-md-3">
                      <ProductCard
                         isWishListPage={true}
                         setMessage={setMessage}

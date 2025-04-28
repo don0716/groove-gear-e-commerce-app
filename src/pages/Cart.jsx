@@ -68,8 +68,7 @@ const Cart = () => {
 
     const fetchAddresses = async () => {
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`)
-            console.log(res.data)
+            await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`)
         }catch(error){
             console.log(error)
         }
@@ -101,7 +100,7 @@ const Cart = () => {
 
                 {
                     message === "" ? "" : (
-                        <div class="alert alert-secondary container" role="alert">
+                        <div className="alert alert-secondary container" role="alert">
                     {message}
                 </div>
                     )
@@ -117,7 +116,7 @@ const Cart = () => {
                         
                         {
                             cart.map(item => (
-                                <div className="col-md-4">
+                                <div key={item.product._id} className="col-md-4">
                                     <ProductCard isCartPage={true}
                                     product={item.product}
                                     quantity={item.quantity}
@@ -198,7 +197,7 @@ const Cart = () => {
                             <div className="">
                             {
                                 cart.map(item => (
-                                    <div className="d-flex justify-content-between">
+                                    <div key={item.product._id} className="d-flex justify-content-between">
                                         <p> {item.product.name} x {item.quantity} </p>
                                         
                                         <p> ₹  {item.product.price * item.quantity}</p>

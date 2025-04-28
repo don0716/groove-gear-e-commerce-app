@@ -100,9 +100,9 @@ const ProductCard = (props) => {
 
                         </div>
                         <div className="d-flex flex-column">
-                          <p className="py-2">
+                          <div className="py-2">
                           <RatingComponent isDisplay={true} ratingValue={product.rating} />
-                          </p>
+                          </div>
                             <button onClick={() => handleWishList(product._id)} className="btn btn-warning my-2">{isProductInWishList ? "Remove From WishList" : "Add To WishList"}</button>
                             <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
                         </div>
@@ -122,9 +122,9 @@ const ProductCard = (props) => {
 
                         </div>
                         <div className="d-flex flex-column">
-                          <p className="py-2">
+                          <div className="py-2">
                           <RatingComponent isDisplay={true} ratingValue={product.rating} />
-                          </p>
+                          </div>
                             <button onClick={() => handleWishList(product._id)} className="btn btn-warning my-2 mx-2">{isProductInWishList ? "Remove From WishList" : "Add To WishList"}</button>
                             <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{isProdInCart ? "Add More To Cart" : "Move to Cart"}</button>
                         </div>

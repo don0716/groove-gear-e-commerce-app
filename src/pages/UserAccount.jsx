@@ -139,7 +139,7 @@ const fetchCart = async () => {
                             <div className="py-4"></div>
                         
                     ) : (
-                        <div class="alert alert-secondary container" role="alert">
+                        <div className="alert alert-secondary container" role="alert">
                     {message}
                 </div>
                     )

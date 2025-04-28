@@ -16,12 +16,12 @@ const Header = ({setSearchInstruments, cartValue, wishListValue, isListingPage =
 
                         
 
-                        <Link className="mx-3 position-relative text-light" to={`/wishlist`} style={{textDecoration: "none",}} ><i class="bi bi-heart  "></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">{wishListValue}<span class="visually-hidden"></span></span> </Link>
+                        <Link className="mx-3 position-relative text-light" to={`/wishlist`} style={{textDecoration: "none",}} ><i className="bi bi-heart  "></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">{wishListValue}<span className="visually-hidden"></span></span> </Link>
                         
                         
-                        <Link className="mx-3 position-relative text-light" to={`/cart`} style={{textDecoration: "none"}} ><i class="bi bi-cart"></i> Cart<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">{cartValue}<span class="visually-hidden"></span></span></Link>
+                        <Link className="mx-3 position-relative text-light" to={`/cart`} style={{textDecoration: "none"}} ><i className="bi bi-cart"></i> Cart<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">{cartValue}<span className="visually-hidden"></span></span></Link>
 
-                        <Link className="px-2  position-relative text-white" to={`/useraccount`} style={{textDecoration: "none"}} ><i class="bi bi-person-circle"></i> Account </Link>
+                        <Link className="px-2  position-relative text-white" to={`/useraccount`} style={{textDecoration: "none"}} ><i className="bi bi-person-circle"></i> Account </Link>
                     </div>
                     
                </div>

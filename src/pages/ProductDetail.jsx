@@ -77,7 +77,7 @@ const ProductDetail = () => {
             <div className="container py-4">
             {
                     message === "" ? "" : (
-                        <div class="alert alert-secondary" role="alert">
+                        <div className="alert alert-secondary" role="alert">
                     {message}
                 </div>
                     )
@@ -108,7 +108,7 @@ const ProductDetail = () => {
                         <div className="d-flex my-4 flex-wrap  justify-content-start">
                         {
                             serviceBadges.map(badge => (
-                                <div className="d-flex flex-column align-items-center mx-2 my-2">
+                                <div key={badge.title} className="d-flex flex-column align-items-center mx-2 my-2">
                         <div className="rounded-circle d-flex justify-content-center align-items-center" style={{
                                 width: "40px",
                                 height: "40px",
@@ -138,7 +138,7 @@ const ProductDetail = () => {
                     <div className="row">
                     {
                         products?.slice(0,4).map(product => (
-                            <div className="col-md-3 py-2 px-2 d-flex">
+                            <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
                                 <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
                             </div>
                         ) )
