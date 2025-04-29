@@ -92,7 +92,7 @@ const ProductCard = (props) => {
                       </div>
                           ) }
                           
-                         { isDetailPage && (
+                         { (isDetailPage && product) && (
                             <div className="text-center flex-fill" >
                         <div>
 
@@ -113,7 +113,7 @@ const ProductCard = (props) => {
                         }
 
                         {
-                          (isWishListPage) && (
+                          (isWishListPage && product) && (
 
                             <div className="card text-center h-100 d-flex flex-column" >
                         <div>
@@ -136,7 +136,7 @@ const ProductCard = (props) => {
                         }
 
 {
-                          isCartPage && (
+                          (isCartPage && product) && (
                             <div className="card text-center h-100 d-flex flex-column m-2" >
                         <div className="position-relative">
                         <div className="position-absolute top-0 end-0 p-4">
