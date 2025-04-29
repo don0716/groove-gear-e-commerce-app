@@ -119,7 +119,7 @@ const fetchCart = async () => {
     }, [])
 
     useEffect(() => {
-        if(message.length > 0) {
+        if(message.length > 0 || message !== "Loading...") {
             setTimeout(() => {
                 setMessage("")
             }, 2000)

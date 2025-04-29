@@ -172,9 +172,9 @@ const ProductCard = (props) => {
                             <div className="card text-center h-100 d-flex flex-column m-2" >
                         <div className="position-relative">
                         <div className="position-absolute top-0 end-0 p-4">
-                        <span onClick={() => handleDecrement(product._id, 1)} className="btn btn-secondary btn-sm">-</span>
-                        <span className="badge text-bg-danger">{quantity}</span>
-                        <span onClick={() => handleIncrement(product._id, 1)}  className="btn btn-secondary btn-sm">+</span>
+                            <span onClick={() => handleDecrement(product._id, 1)} className="btn btn-outline-secondary btn-sm py-0">-</span>
+                            <span className="btn btn-light btn-sm py-0">{quantity}</span>
+                            <span onClick={() => handleIncrement(product._id, 1)}  className="btn btn-outline-secondary btn-sm py-0">+</span>
                         </div>
 
                           <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5" style={{objectFit: "contain"}}  alt={`${product.name} Image`} />
