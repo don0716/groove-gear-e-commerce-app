@@ -31,6 +31,7 @@ const ProductListing = () => {
             setWishList(res.data.wishList)
         } catch(error){
             setMessage(error.message)
+            console.log(error.message)
         }
     }
 
@@ -40,6 +41,7 @@ const ProductListing = () => {
             setCart(res.data.cartItems)
         }catch(error){
             setMessage(error.message)
+            console.log(error.message)
         }
     }
 
@@ -51,6 +53,7 @@ const ProductListing = () => {
             setMessage("")
         } catch(error){
             setMessage("Error Fetching Products!, ERROR:: ", error.message)
+            console.log(error.message)
         }
     }
 
@@ -60,6 +63,7 @@ const ProductListing = () => {
             setCategories(res.data.prod)
         } catch(error){
             setMessage(error.message)
+            console.log(error.message)
         }
     }
 
