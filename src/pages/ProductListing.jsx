@@ -29,10 +29,9 @@ const ProductListing = () => {
         try{
             const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
-            console.log(res)
+            
         } catch(error){
             setMessage(error.message)
-            console.log(error.message)
         }
     }
 
@@ -40,10 +39,9 @@ const ProductListing = () => {
         try{
             const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
-            console.log(res)
+            
         }catch(error){
             setMessage(error.message)
-            console.log(error.message)
         }
     }
 
@@ -53,10 +51,9 @@ const ProductListing = () => {
             const res = await axios.get(`${backendUrl}/api/products`)
             setProducts(res.data)
             setMessage("")
-            console.log(res)
+            
         } catch(error){
             setMessage("Error Fetching Products!, ERROR:: ", error.message)
-            console.log(error.message)
         }
     }
 
@@ -64,10 +61,9 @@ const ProductListing = () => {
         try{
             const res = await axios.get(`${backendUrl}/api/categories`)
             setCategories(res.data.prod)
-            console.log(res)
+            
         } catch(error){
             setMessage(error.message)
-            console.log(error.message)
         }
     }
 

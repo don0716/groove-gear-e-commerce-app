@@ -43,12 +43,16 @@ const ProductCard = (props) => {
     try{
       setMessage("Loading...")
       if(isAddToCartBtn) {
-        await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`, {
-          productId: prodId
-        })
-        setMessage("Added To Cart")
-
+        try{
+          await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`, {
+            productId: prodId
+          })
+          setMessage("Added To Cart")
           setCart(prev => [...prev, {product: product, quantity: 1}])
+        }catch(error){
+          setMessage("Product Already Exists in Cart")
+        }
+        
       } else {
         setMessage("Loading...")
         await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
@@ -58,7 +62,7 @@ const ProductCard = (props) => {
   
       }
     } catch(error){
-      setMessage("Failed to delete from Cart", error.message)
+      setMessage(error.message)
     }
 
   }
@@ -83,7 +87,7 @@ const ProductCard = (props) => {
                         <div className="card-body d-flex flex-column">
                             <h3 className="card-title">{product.name}</h3>
                             <p className="card-text">{product.name}</p> 
-                            <p>{product?.category?.name || "No Category"}</p>
+                            <p>{product?.category?.name}</p>
                             <p><strong>₹ {product.price}</strong></p>
                             <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
                         </div>
@@ -126,7 +130,10 @@ const ProductCard = (props) => {
                           <RatingComponent isDisplay={true} ratingValue={product.rating} />
                           </div>
                             <button onClick={() => handleWishList(product._id)} className="btn btn-warning my-2 mx-2">{isProductInWishList ? "Remove From WishList" : "Add To WishList"}</button>
-                            <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{isProdInCart ? "Add More To Cart" : "Move to Cart"}</button>
+                            <button onClick={() => {
+                              handleAddToCart(product._id, true)
+                              handleWishList(product._id)
+                            }} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{"Move to Cart"}</button>
                         </div>
                         
                     
@@ -153,7 +160,10 @@ const ProductCard = (props) => {
                             <h5>₹ {product.price}</h5>
                             <p>{product.name}</p>
                             <button onClick={() => handleAddToCart(product._id)} className="btn btn-warning my-2 mx-2">Remove From Cart</button>
-                            <button onClick={() => handleWishList(product._id)} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{isProductInWishList ? "Remove from WishList" : "Move to Wishlist"}</button>
+                            <button onClick={() => {
+                              handleWishList(product._id)
+                              handleAddToCart(product._id)
+                            }} className="btn btn-primary px-5 my-2 mx-2 mt-auto">{"Move to Wishlist"}</button>
                         </div>
                         
                     
