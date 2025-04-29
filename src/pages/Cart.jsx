@@ -72,6 +72,18 @@ const Cart = () => {
             console.log(error)
         }
     }
+
+    const handleCheckout = async () => {
+        try{
+            await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
+            setMessage("Order Placed Successfully!")
+            setCart([])
+
+        }catch(error){
+            console.log(error)
+            setMessage("Error!")
+        }
+    }
   
     useEffect(() => {
         fetchCart()
@@ -98,7 +110,9 @@ const Cart = () => {
                 </h2>
 
                 {
-                    message === "" ? "" : (
+                    message === "" ? (
+                        <div className="py-4"></div>
+                    ) : (
                         <div className="alert alert-secondary container" role="alert">
                     {message}
                 </div>
@@ -217,10 +231,7 @@ const Cart = () => {
                                         <div>
                                             <p>{defaultAddress?.street}, {defaultAddress?.state} | pincode: {defaultAddress?.pincode}</p>
                                 <p><strong>Phone:</strong> {defaultAddress?.phone}</p>
-                                <button onClick={() => {
-                                    setMessage("Order Placed Successfully!")
-                                    setCart([])
-                                } }  className="btn btn-primary">Checkout</button>
+                                <button onClick={() => handleCheckout() }  className="btn btn-primary">Checkout</button>
                                         </div>
                                     )
                                 }

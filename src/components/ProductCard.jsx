@@ -67,6 +67,31 @@ const ProductCard = (props) => {
 
   }
 
+  const handleIncrement = async (prodId, qty) => {
+    try{
+      setMessage("Loading...")
+      const res = await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart/increase/${prodId}`, {
+        quantity: qty
+      })
+      setMessage("Incremented")
+      setCart(res.data.cart)
+    }catch(error){
+      setMessage("Max Quantity is 10!")
+    }
+  }
+  const handleDecrement = async (prodId, qty) => {
+    try{
+      setMessage("Loading...")
+      const res = await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart/decrease/${prodId}`, {
+        quantity: qty
+      })
+      setMessage("Decremented")
+      setCart(res.data.cart)
+    }catch(error){
+      setMessage("Quantity Cannot be less than 1")
+    }
+  }
+
     return (
                       <div>
                         {
@@ -147,7 +172,9 @@ const ProductCard = (props) => {
                             <div className="card text-center h-100 d-flex flex-column m-2" >
                         <div className="position-relative">
                         <div className="position-absolute top-0 end-0 p-4">
+                        <span onClick={() => handleDecrement(product._id, 1)} className="btn btn-secondary btn-sm">-</span>
                         <span className="badge text-bg-danger">{quantity}</span>
+                        <span onClick={() => handleIncrement(product._id, 1)}  className="btn btn-secondary btn-sm">+</span>
                         </div>
 
                           <img src={`${product.imageUrl}`} className="card-img-top img-fluid pt-5" style={{objectFit: "contain"}}  alt={`${product.name} Image`} />
