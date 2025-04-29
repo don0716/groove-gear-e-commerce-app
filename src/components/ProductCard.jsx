@@ -83,7 +83,7 @@ const ProductCard = (props) => {
                         <div className="card-body d-flex flex-column">
                             <h3 className="card-title">{product.name}</h3>
                             <p className="card-text">{product.name}</p> 
-                            <p>{product?.category.name || "No Category"}</p>
+                            <p>{product?.category?.name || "No Category"}</p>
                             <p><strong>₹ {product.price}</strong></p>
                             <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
                         </div>
