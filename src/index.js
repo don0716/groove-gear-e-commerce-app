@@ -9,11 +9,17 @@ import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
 import WishList from "./pages/WishList";
 import UserAccount from "./pages/UserAccount";
+import LandingPage from "./pages/LandingPage";
+import ProductListing from "./pages/ProductListing";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/products",
+    element: <ProductListing />,
   },
   {
     path: "/cart",

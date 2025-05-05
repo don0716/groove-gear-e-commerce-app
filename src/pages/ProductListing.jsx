@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import ProductCard from "../components/ProductCard"
 import FilterComponent from "../components/FilterComponent"
+import { useLocation } from "react-router-dom"
 
 const ProductListing = () => {
 
@@ -19,6 +20,10 @@ const ProductListing = () => {
         rating: 0,
         categories: []
     })
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const categoryFromURL = params.get("category");
+
     const [message, setMessage] = useState("")
 
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
@@ -115,14 +120,35 @@ const ProductListing = () => {
         }
     }, [message])
 
+    useEffect(() => {
+        if (categoryFromURL && categories.length > 0 && products.length > 0) {
+          // Check if this category actually exists in your list (optional safety)
+          const validCategory = categories.some(cat => cat.name === categoryFromURL);
+          if (validCategory) {
+            setFilter(prev => ({
+              ...prev,
+              categories: [categoryFromURL],
+            }));
+          }
+        }
+      }, [categoryFromURL, categories, products]);
+
     return (
         <div>
             <Header setSearchInstruments={setSearchInstruments} cartValue={cartValue} wishListValue={wishListValue} isListingPage= {true} />
             <div className="container">
+            {message === "" ? (
+                            <div className="py-4"></div>) : (
+                                <div className="alert alert-secondary container mt-2" role="alert">
+                            {message}
+                            </div>
+                            )}
                 
 
                 <div className="row">
-                    <div className="col-md-2 py-4">
+                    {
+                        products.length > 0 && (
+                            <div className="col-md-2 py-4">
                         <div className="d-md-none mb-2">
                             <button className="btn btn-secondary w-100"  data-bs-toggle="collapse"
                             data-bs-target="#mobileFilter"
@@ -135,17 +161,14 @@ const ProductListing = () => {
                         </div>
                       
                     </div>
+                        )
+                    }
                     <div className="col-md-10 py-4">
                         <div className="products-header">
                             <h4 className="text-center">Showing All Products</h4>
                         </div>
                         <div className="message-display-section">
-                        {message === "" ? (
-                            <div className="py-4"></div>) : (
-                                <div className="alert alert-secondary container" role="alert">
-                            {message}
-                            </div>
-                            )}
+                        
                         </div>
 
                         <div className="row">

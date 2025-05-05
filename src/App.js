@@ -1,9 +1,9 @@
-import ProductListing from "./pages/ProductListing";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <div>
-      <ProductListing />
+      <LandingPage />
     </div>
   );
 }
