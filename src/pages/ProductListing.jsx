@@ -108,7 +108,7 @@ const ProductListing = () => {
     }, [products, filter, searchInstruments])
 
     useEffect(() => {
-        if(message.length > 0 || message !== "Loading..."){
+        if(message.length > 0 && message !== "Loading..."){
             setTimeout(() => {
                 setMessage("")
             }, 3000)

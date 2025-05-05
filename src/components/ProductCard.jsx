@@ -9,7 +9,7 @@ const ProductCard = (props) => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL
 
   const isProductInWishList = wishList?.some(item => item._id === product._id)
-  const isProdInCart = cart?.some(item => item.product._id === product._id)
+  // const isProdInCart = cart?.some(item => item.product._id === product._id)
 
   const handleWishList = async (prodId) => {
     if(!isProductInWishList){
@@ -36,7 +36,6 @@ const ProductCard = (props) => {
         setMessage("Failed to Delete from Wishlist", error.message)
       }
     }
-    
   }
 
   const handleAddToCart = async (prodId, isAddToCartBtn = false) => {
@@ -79,6 +78,7 @@ const ProductCard = (props) => {
       setMessage("Max Quantity is 10!")
     }
   }
+
   const handleDecrement = async (prodId, qty) => {
     try{
       setMessage("Loading...")
@@ -94,6 +94,7 @@ const ProductCard = (props) => {
 
     return (
                       <div>
+                        {/* Listing Page  */}
                         {
                           (isListingPage && product) && (
                             <div className="card text-center h-100 d-flex flex-column"  >
@@ -114,13 +115,15 @@ const ProductCard = (props) => {
                             <p className="card-text">{product.name}</p> 
                             <p>{product?.category?.name}</p>
                             <p><strong>₹ {product.price}</strong></p>
-                            <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart</button>
+                            <button onClick={() => handleAddToCart(product._id, true)} className="btn btn-primary px-5 mt-auto">Add to Cart </button>
                         </div>
                         
                     
                       </div>
                           ) }
                           
+
+                          {/* Detail Page */}
                          { (isDetailPage && product) && (
                             <div className="text-center flex-fill" >
                         <div>
@@ -141,6 +144,7 @@ const ProductCard = (props) => {
                           ) 
                         }
 
+                        {/* WishList Page */}
                         {
                           (isWishListPage && product) && (
 
@@ -167,7 +171,8 @@ const ProductCard = (props) => {
                           )
                         }
 
-{
+                        {/* Cart Page */}
+                        {
                           (isCartPage && product) && (
                             <div className="card text-center h-100 d-flex flex-column m-2" >
                         <div className="position-relative">

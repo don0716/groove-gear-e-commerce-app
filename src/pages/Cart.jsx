@@ -3,6 +3,7 @@ import Footer from "../components/Footer"
 import ProductCard from "../components/ProductCard"
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 
 const Cart = () => {
@@ -74,14 +75,29 @@ const Cart = () => {
     }
 
     const handleCheckout = async () => {
+        setMessage("Loading...")
         try{
             await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
             setMessage("Order Placed Successfully!")
             setCart([])
-
+            setMessage("")
         }catch(error){
             console.log(error)
             setMessage("Error!")
+        }
+    }
+
+    const handleDefaultAddress = async (addressId) => {
+        setMessage("Setting Default Address...")
+        try{
+            await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/default-address`, {
+                addressId
+            })
+            fetchUsers()
+            setMessage("Changed Default Address!")
+
+        }catch(error) {
+            setMessage("Some Error Occured!")
         }
     }
   
@@ -118,8 +134,13 @@ const Cart = () => {
                 </div>
                     )
                 }
-
                 {
+                    (!cart.length > 0 && message !== "Loading...") && <h2 className="text-center">Add Items to Cart!</h2>
+                }
+
+
+    
+                    {
                     !isOrderPlaced && (
                         <div className="container">
                 <div className="row mt-4">
@@ -145,7 +166,9 @@ const Cart = () => {
                     </div>
                     </div>
 
-                    <div className="col-md-5">
+                    {
+                        cart?.length > 0 && (
+                            <div className="col-md-5">
                         <div className="card">
                             <div className="card-body">
                                 <h5>Price Details</h5>
@@ -183,13 +206,46 @@ const Cart = () => {
                                 </div>
                                     )
                                 }
+                                <hr />
+ 
+                                  <div><strong>Select an Address: </strong> 
+                                    {user?.addresses?.length === 0 && <p className="text-center" style={{color: "red"}} >No Addresses Found. Please an Address. <Link to={`/useraccount`} className="btn btn-primary btn-sm">Add An Address</Link>  </p>}
+                                    
+                                      <ul>
+                                      {user?.addresses?.map(add => (
+                                        <li key={add._id}>
+                                            
+                                            
+                                            <div className="d-flex justify-content-between">
+                                                <div>
+                                                <p>{add.name} {user.defaultAddressId === add._id && (
+                                                <span className="badge bg-success">Default</span>
+                                            )} </p>
+                                            <p>Phone: {add.phone} | {add.street}, {add.state} | pincode: {add.pincode}</p>
+                                            <button onClick={() => handleDefaultAddress(add._id) } className={`btn btn-primary btn-sm ${user.defaultAddressId === add._id && "disabled"} `}>Make Default Address</button>
+                                                </div>
+                                                <div>
+                                                   <div>
+                                                    
+                                                   </div>
+
+                                            </div>
+                                            </div>
+                                            
+                                            <hr />
+                                        </li>
+                                      ))}
+                                      </ul>
+                                     </div>
 
                                 
 
                             </div>
-                            <button onClick={() => setIsOrderPlaced(true)} className="btn btn-primary m-3">Place Order</button>
+                            <button onClick={() => setIsOrderPlaced(true)} className={`btn btn-primary m-3 ${!defaultAddress && `disabled` }`} >Place Order</button>
                         </div>
                     </div>
+                        )
+                    }
 
 
                     </div>
@@ -199,7 +255,7 @@ const Cart = () => {
                 
 
                 {
-                    (isOrderPlaced) && (
+                    (isOrderPlaced && cart.length > 0) && (
                         <div className="container">
                 <hr />
                     <h2 className="text-center">Order Summary</h2>
@@ -242,6 +298,9 @@ const Cart = () => {
                 </div>
                     )
                 }
+                  
+
+                
                 
             </div>
             <Footer />

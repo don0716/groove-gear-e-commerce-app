@@ -73,23 +73,35 @@ const WishList = () => {
                 }
                         </div>
 
+           <div >
            <div className="row">
-           {
-            wishList.map(item => (
-                <div key={item._id} className="col-md-3">
-                     <ProductCard
-                        isWishListPage={true}
-                        setMessage={setMessage}
-
-                        product={item}
-                        setWishList={setWishList}
-                        wishList={wishList}
-                        cart={cart}
-                        setCart={setCart}
-                  />
-                </div>
-            ))
-           }
+              {
+                (wishList.length > 0 ) ? (
+                    <>
+                        {
+                        wishList.map(item => (
+                            <div key={item._id} className="col-md-3">
+                                 <ProductCard
+                                    isWishListPage={true}
+                                    setMessage={setMessage}
+            
+                                    product={item}
+                                    setWishList={setWishList}
+                                    wishList={wishList}
+                                    cart={cart}
+                                    setCart={setCart}
+                              />
+                            </div>
+                        ))
+                       }
+                    </>
+                ) : (
+                    message !== "Loading..." && (
+                        <h4 className="text-center" >No Items Added In WishList!</h4>
+                    )
+                )
+              }
+           </div>
            </div>
 
 
