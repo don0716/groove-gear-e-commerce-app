@@ -126,7 +126,7 @@ const ProductListing = () => {
           const validCategory = categories.some(cat => cat.name === categoryFromURL);
           if (validCategory) {
             setFilter(prev => ({
-              ...prev,
+              ...prev, 
               categories: [categoryFromURL],
             }));
           }
@@ -164,12 +164,13 @@ const ProductListing = () => {
                         )
                     }
                     <div className="col-md-10 py-4">
-                        <div className="products-header">
-                            <h4 className="text-center">Showing All Products</h4>
-                        </div>
-                        <div className="message-display-section">
-                        
-                        </div>
+                        {
+                            (filteredProducts?.length > 0 && products) && (
+                                <div className="products-header">
+                                    <h4 className="text-center">Showing All Products</h4>
+                               </div>
+                            )
+                        }
 
                         <div className="row">
                             {
