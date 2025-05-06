@@ -4,9 +4,9 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-## ✅ PRD Feature Checklist
+## ✔ PRD Feature Checklist
 
-### 🔸 Pages & Navigation
+###  Pages & Navigation
 ### Home Page
   - [x] Featured categories
   - [x] Clickable categories route to Product Listing
@@ -63,7 +63,7 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-### 🔸 Filters & Sorting
+###  Filters & Sorting
 - [x] Category Filter (checkbox)
 - [x] Rating Filter (slider)
 - [x] Sort by Price (radio buttons)
@@ -73,14 +73,14 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-### 🔸 Search
+###  Search
 - [x] Search bar in navbar
 - [x] Search filters the product list dynamically
 - [x] Seach is disabled in all other pages except productListing page.
 
 ---
 
-### 🔸 UX Enhancements
+###  UX Enhancements
 - [x] Loading messages (on product/user data fetch)
 - [x] Alerts / Toasts:
   - [x] Add to Cart
@@ -91,7 +91,7 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 | Technology     | Usage                     |
 |----------------|---------------------------|
@@ -105,7 +105,7 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-## 📦 Future Features
+##  Future Features
 
 - [ ] Authentication (Login / Signup)
 - [ ] Payment Gateway Integration
@@ -115,7 +115,7 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 
 ---
 
-## 🛠️ Getting Started
+##   Getting Started
 
 ```bash
 git clone https://github.com/your-username/groove-gear.git
