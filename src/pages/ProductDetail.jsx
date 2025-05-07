@@ -3,7 +3,8 @@ import Footer from "../components/Footer"
 import {  useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import ProductCard from "../components/ProductCard"
+import ProductCard from "../components/productCards/ProductCard"
+import ProductDetailCard from "../components/productCards/ProductDetailCard"
 
 const ProductDetail = () => {
     const [products, setProducts] = useState()
@@ -11,7 +12,7 @@ const ProductDetail = () => {
     const product = products?.find(prod => prod._id === productId)
     const [wishList, setWishList] = useState([])
     const [cart, setCart] = useState([])
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
+    const API_URL = process.env.REACT_APP_BACKEND_URL
     const [message, setMessage] = useState("")
     const cartValue = cart.reduce((acc, curr) => curr.quantity + acc, 0 )
 
@@ -24,7 +25,7 @@ const ProductDetail = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             console.log(error)
@@ -33,8 +34,7 @@ const ProductDetail = () => {
     const fetchCart = async () => {
         try{
 
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
-            // console.log(res.data)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
 
         }catch(error){
@@ -42,12 +42,10 @@ const ProductDetail = () => {
         }
     }
 
-   
-
     const fetchProducts = async () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`${backendUrl}/api/products`)
+            const res = await axios.get(`${API_URL}/api/products`)
             setProducts(res.data)
             setMessage("")
         } catch(error){
@@ -85,18 +83,15 @@ const ProductDetail = () => {
 
                 {
                     product && (
-                        <div className="row">
+                       <div>
+                         <div className="row">
                     {product && (
                         <div className="col-md-4">
-                        <ProductCard
+                        <ProductDetailCard
                         setMessage={setMessage}
                         message={message}
-                        isDetailPage={true}
-                        isListingPage={false}
                         product={product}
-                        wishList={wishList}
                         setWishList={setWishList}
-                        cart={cart}
                         setCart={setCart}
                   />
                         </div>
@@ -127,8 +122,8 @@ const ProductDetail = () => {
                         
                     </div>
                 </div>
-                    )
-                }
+                    
+                
                 <hr />
 
                 <div className="my-2">
@@ -139,13 +134,17 @@ const ProductDetail = () => {
                     {
                         products?.slice(0,4).map(product => (
                             <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
-                                <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
+                                <ProductCard product={product} setCart={setCart}  wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
                             </div>
                         ) )
                     }
                     </div>
 
                 </div>
+                       </div>
+
+                )
+                }
 
                 
             </div>

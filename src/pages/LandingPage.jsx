@@ -1,7 +1,7 @@
 import Header from "../components/Header"
 import { useState, useEffect } from "react"
 import axios from "axios"
-import ProductCard from "../components/ProductCard"
+import ProductCard from "../components/productCards/ProductCard"
 import Footer from "../components/Footer"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -13,15 +13,13 @@ const LandingPage  = () => {
     const [message, setMessage] = useState("")
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
-
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
-    
+    const API_URL = process.env.REACT_APP_BACKEND_URL
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
 
     const fetchProducts = async () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`${backendUrl}/api/products`)
+            const res = await axios.get(`${API_URL}/api/products`)
             setProducts(res.data)
             setMessage("")
         } catch(error){
@@ -33,8 +31,7 @@ const LandingPage  = () => {
         setMessage("Loading...")
         try{
 
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
-            // console.log(res.data)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
             setMessage("")
 
@@ -46,7 +43,7 @@ const LandingPage  = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             setMessage("Error fetching Wishlist!")
@@ -55,7 +52,7 @@ const LandingPage  = () => {
 
     const fetchCategories = async () => {
         try{
-            const res = await axios.get(`${backendUrl}/api/categories`)
+            const res = await axios.get(`${API_URL}/api/categories`)
             setCategories(res.data.prod)
             
         } catch(error){
@@ -131,7 +128,7 @@ const LandingPage  = () => {
                         {
                             products?.slice(3,7).map(product => (
                                 <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
-                                    <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
+                                    <ProductCard product={product} setCart={setCart}  wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
                                 </div>
                             ) )
                         }

@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+# 🛍️ Groove-Gear — E-commerce App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to **Groove-Gear**, a full-stack e-commerce application built using **React JS** and **Bootstrap**. This project features a modern UI, dynamic filtering, and complete shopping workflow including cart, wishlist, checkout, and user profile functionality.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✔ PRD Feature Checklist
 
-### `npm start`
+###  Pages & Navigation
+### Home Page
+  - [x] Featured categories
+  - [x] Clickable categories route to Product Listing
+   #### Extra Added Features - Home Page
+  - [x] Groove Gear Logo in the center of the page.
+  - [x] Clickable featured products that lead to ProductDetail page of that product.
+  - [x] View All Products Button that takes you to ProductListing page.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Product Listing Page
+  - [x] All products listed
+  - [x] Product card with image, name, price, rating
+  - [x] Add to Cart & Wishlist buttons
+  - [x] Clickable product card links to product detail page
 
-### `npm test`
+### Product Details Page
+  - [x] Detailed view with image, description, price, rating, etc.
+  - [x] Add to Cart & Wishlist Buttons added
+  - [x] More Items you might like section below the Product Description.
+        
+### Cart Page
+  - [x] Product list with quantity controls
+  - [x] Remove from cart
+  - [x] Move to wishlist
+  - [x] Place Order button which takes you to checkout page with order summary only if products exist in cart and if the address is selected.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Checkout & Order
+- [x] View order summary
+- [x] Back to cart button that takes you back to cart page.
+- [x] Show "Order Placed Successfully" message on clicking checkout.
+- [x] Cart is cleared in backend once the order is placed successfully.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Wishlist Page
+  - [x] View saved items
+  - [x] Move item to cart.
+  - [x] Remove from wishlist.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  #### Added Features - Wishlist Page
+  - [x] Displays "No Items Added in wishList if wishlist is empty"
+  - [x] If item already exists in cart, a message is displayed "Item already Exists in cart" and then deletes the item from wishList.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  
+### User Profile Page
+  - [x] View user details
+  - [x] Display addresses and profile info
 
-### `npm run eject`
+#### Address Management
+- [x] Add new address, where user can add address with required inputs. Add Address will not work if all inputs are not filled.
+- [x] Edit existing address
+- [x] Delete address
+- [x] Set default delivery address
+- [x] Clears the input fields if the Address is added successfully to the backend.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+###  Filters & Sorting
+- [x] Category Filter (checkbox)
+- [x] Rating Filter (slider)
+- [x] Sort by Price (radio buttons)
+  - [x] Low to High
+  - [x] High to Low
+- [x] Clear All Filters
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+###  Search
+- [x] Search bar in navbar
+- [x] Search filters the product list dynamically
+- [x] Seach is disabled in all other pages except productListing page.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+###  UX Enhancements
+- [x] Loading messages (on product/user data fetch)
+- [x] Alerts / Toasts:
+  - [x] Add to Cart
+  - [x] Remove from Cart
+  - [x] Wishlist operations
+  - [x] Address updates
+  - [x] Order placed
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+##  Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Technology     | Usage                     |
+|----------------|---------------------------|
+| React JS       | Frontend framework        |
+| Bootstrap      | UI styling and layout     |
+| React Router   | Client-side routing       |
+| Axios          | API calls                 |
+| Node.js        | Backend                   |
+| Express.js     | Server                    |
+| MongoDB        | Database                  |
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+##  Future Features
 
-### Making a Progressive Web App
+- [ ] Authentication (Login / Signup)
+- [ ] Payment Gateway Integration
+- [ ] Admin Panel for Products
+- [ ] Reviews & Ratings by Users
+- [ ] Redux toolkit for state management.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+##   Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/your-username/groove-gear.git
+cd groove-gear
+npm install
+npm start

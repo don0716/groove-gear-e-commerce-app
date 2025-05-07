@@ -1,52 +1,40 @@
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import ProductCard from "../components/ProductCard"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-
+import ProductCardCart from "../components/productCards/ProductCardCart"
 
 const Cart = () => {
-
     const [cart, setCart] = useState([])
     const [wishList, setWishList] = useState([])
     const [isOrderPlaced, setIsOrderPlaced] = useState(false)
     const [message, setMessage] = useState("")
-
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
-    
+    const API_URL = process.env.REACT_APP_BACKEND_URL
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
     const totalProductsPrice = cart?.reduce((acc, curr) => (curr.product.price * curr.quantity) + acc , 0 )
     const discount = totalProductsPrice === 0 ? 0 : totalProductsPrice < 10000 ? 500 : totalProductsPrice < 20000 ? 1000 : totalProductsPrice < 30000 ? 2000 : totalProductsPrice > 40000 ? 3000 : 0
-
     const deliveryCharges = totalProductsPrice < 10000 && totalProductsPrice > 0 ? 500 : 0
-
     const totalAmount = (totalProductsPrice + deliveryCharges) - discount
-
     const [userData, setUserData] = useState([])
-    
     const user = userData?.data?.find(user => user.name === "Donovan Monteiro")
     const defaultAddress = user?.addresses.find(add => add._id.toString() === user?.defaultAddressId?.toString())
 
-  const fetchUsers = async  () => {
-        try{
-            const res = await axios.get(`${backendUrl}/api/users`)
-            setUserData(res.data)
+    const fetchUsers = async  () => {
+            try{
+                const res = await axios.get(`${API_URL}/api/users`)
+                setUserData(res.data)
 
-        }catch(error){
-            console.log(error)
+            }catch(error){
+                console.log(error)
+            }
         }
-    }
-    
-
-
-
 
     const fetchCart = async () => {
         setMessage("Loading...")
         try{
 
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             // console.log(res.data)
             setCart(res.data.cartItems)
             setMessage("")
@@ -59,7 +47,7 @@ const Cart = () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             setMessage("Error fetching Wishlist!")
@@ -68,7 +56,7 @@ const Cart = () => {
 
     const fetchAddresses = async () => {
         try{
-            await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`)
+            await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/address`)
         }catch(error){
             console.log(error)
         }
@@ -77,7 +65,7 @@ const Cart = () => {
     const handleCheckout = async () => {
         setMessage("Loading...")
         try{
-            await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
+            await axios.delete(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setMessage("Order Placed Successfully!")
             setCart([])
             setMessage("")
@@ -90,7 +78,7 @@ const Cart = () => {
     const handleDefaultAddress = async (addressId) => {
         setMessage("Setting Default Address...")
         try{
-            await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/default-address`, {
+            await axios.patch(`${API_URL}/api/users/68073e3381a7d2e650b55871/default-address`, {
                 addressId
             })
             fetchUsers()
@@ -137,8 +125,6 @@ const Cart = () => {
                 {
                     (!cart.length > 0 && message !== "Loading...") && <h2 className="text-center">Add Items to Cart!</h2>
                 }
-
-
     
                     {
                     !isOrderPlaced && (
@@ -151,12 +137,11 @@ const Cart = () => {
                         {
                             cart.map(item => (
                                 <div key={item.product._id} className="col-md-4">
-                                    <ProductCard isCartPage={true}
+                                    <ProductCardCart 
                                     product={item.product}
                                     quantity={item.quantity}
                                     setWishList={setWishList}
                                     wishList={wishList}
-                                    cart={cart}
                                     setCart={setCart}
                                     setMessage={setMessage} />
                                 </div>

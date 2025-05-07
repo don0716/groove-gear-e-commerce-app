@@ -2,22 +2,19 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import ProductCard from "../components/ProductCard"
+import ProductCardWishlist from "../components/productCards/ProductCardWishlist"
 
 const WishList = () => {
-
     const [wishList, setWishList] = useState([])
     const [cart, setCart] = useState([])
     const [message, setMessage] = useState("")
-
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
-
+    const API_URL = process.env.REACT_APP_BACKEND_URL
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
 
     const fetchWishList = async () =>{
         setMessage("Loading...")
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
             setMessage("")
         } catch(error){
@@ -28,11 +25,8 @@ const WishList = () => {
 
     const fetchCart = async () => {
         try{
-
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
-            // console.log(res.data)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
-
         }catch(error){
             console.log(error)
         }
@@ -56,9 +50,7 @@ const WishList = () => {
         <div>
             <Header wishListValue={wishList?.length} cartValue={cartValue} />
             <div className="container">
-
                 <h1 className="text-center my-2">Wishlist ({`${wishList.length}`})</h1>
-
             <div className="pt-2">
                         {
                     message === "" ? (
@@ -81,14 +73,11 @@ const WishList = () => {
                         {
                         wishList.map(item => (
                             <div key={item._id} className="col-md-3">
-                                 <ProductCard
-                                    isWishListPage={true}
+                                 <ProductCardWishlist
                                     setMessage={setMessage}
-            
                                     product={item}
                                     setWishList={setWishList}
                                     wishList={wishList}
-                                    cart={cart}
                                     setCart={setCart}
                               />
                             </div>
@@ -104,8 +93,6 @@ const WishList = () => {
            </div>
            </div>
 
-
-                
             </div>
             <Footer />
         </div>

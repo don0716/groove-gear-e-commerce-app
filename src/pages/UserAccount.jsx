@@ -15,15 +15,14 @@ const UserAccount = () => {
         pincode: "",
         phone: ""
     })
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
+    const API_URL = process.env.REACT_APP_BACKEND_URL
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
     const user = userData?.data?.find(user => user.name === "Donovan Monteiro")
-    // const defaultAddress = user?.addresses?.find(add => add._id === user.defaultAddressId)
 
     const fetchUsers = async  () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`${backendUrl}/api/users`)
+            const res = await axios.get(`${API_URL}/api/users`)
             setUserData(res.data)
             setMessage("")
 
@@ -36,7 +35,7 @@ const UserAccount = () => {
 
 const fetchCart = async () => {
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
         }catch(error){
             setMessage("Error!")
@@ -45,7 +44,7 @@ const fetchCart = async () => {
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
         } catch(error){
             setMessage("Error")
@@ -55,7 +54,7 @@ const fetchCart = async () => {
     const handleDefaultAddress = async (addressId) => {
         setMessage("Setting Default Address...")
         try{
-            await axios.patch(`${backendUrl}/api/users/68073e3381a7d2e650b55871/default-address`, {
+            await axios.patch(`${API_URL}/api/users/68073e3381a7d2e650b55871/default-address`, {
                 addressId
             })
             fetchUsers()
@@ -80,7 +79,7 @@ const fetchCart = async () => {
         e.preventDefault()
         setMessage("Loading...")
         try{
-            const res = await axios.post(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address`, 
+            const res = await axios.post(`${API_URL}/api/users/68073e3381a7d2e650b55871/address`, 
                 addressFormData)
             console.log(res.data)
             setAddressFormData({
@@ -102,7 +101,7 @@ const fetchCart = async () => {
     const handleDeleteAddress = async (addressId) => {
         setMessage("Loading...")
         try{
-            await axios.delete(`${backendUrl}/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
+            await axios.delete(`${API_URL}/api/users/68073e3381a7d2e650b55871/address/${addressId}`)
             fetchUsers()
             setMessage("Deleted Address Successfully!")
 

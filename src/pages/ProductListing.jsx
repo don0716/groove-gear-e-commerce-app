@@ -2,12 +2,11 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import ProductCard from "../components/ProductCard"
 import FilterComponent from "../components/FilterComponent"
 import { useLocation } from "react-router-dom"
+import ProductListingCard from "../components/productCards/ProductListingCard"
 
 const ProductListing = () => {
-
     const [products, setProducts] = useState([])
     const [wishList, setWishList] = useState([])
     const [categories, setCategories] = useState([])
@@ -23,18 +22,15 @@ const ProductListing = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const categoryFromURL = params.get("category");
-
     const [message, setMessage] = useState("")
-
     const cartValue = cart?.reduce((acc, curr) => curr.quantity + acc, 0 )
     const wishListValue = wishList?.length
-    const backendUrl = process.env.REACT_APP_BACKEND_URL
+    const API_URL = process.env.REACT_APP_BACKEND_URL
 
     const fetchWishList = async () =>{
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/wishList`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishList`)
             setWishList(res.data.wishList)
-            
         } catch(error){
             setMessage(error.message)
         }
@@ -42,9 +38,8 @@ const ProductListing = () => {
 
     const fetchCart = async () => {
         try{
-            const res = await axios.get(`${backendUrl}/api/users/68073e3381a7d2e650b55871/cart`)
+            const res = await axios.get(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`)
             setCart(res.data.cartItems)
-            
         }catch(error){
             setMessage(error.message)
         }
@@ -53,10 +48,9 @@ const ProductListing = () => {
      const fetchProducts = async () => {
         setMessage("Loading...")
         try{
-            const res = await axios.get(`${backendUrl}/api/products`)
+            const res = await axios.get(`${API_URL}/api/products`)
             setProducts(res.data)
             setMessage("")
-            
         } catch(error){
             setMessage("Error Fetching Products!, ERROR:: ", error.message)
         }
@@ -64,11 +58,66 @@ const ProductListing = () => {
 
     const fetchCategories = async () => {
         try{
-            const res = await axios.get(`${backendUrl}/api/categories`)
+            const res = await axios.get(`${API_URL}/api/categories`)
             setCategories(res.data.prod)
             
         } catch(error){
             setMessage(error.message)
+        }
+    }
+
+    const handleWishList = async (prodId, isProductInWishList) => {
+        const product = products.find(prod => prod._id === prodId)
+        if(!isProductInWishList){
+          try{
+            setMessage("Loading...")
+            await axios.post(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishlist`,{
+              productId: prodId
+            } )
+            setWishList(prev => [...prev, product])
+            setMessage("Added to WishList!")
+            
+          }catch(error) {
+            setMessage("Failed to Add To WishList!", error.message)
+          }
+        } else {
+          try{
+            setMessage("Loading...")
+            await axios.delete(`${API_URL}/api/users/68073e3381a7d2e650b55871/wishlist/${prodId}`)
+    
+            setMessage("Successfully Deleted from WishList!")
+            setWishList(prev => prev.filter(item => item._id !== prodId))
+            
+          }catch(error) {
+            setMessage("Failed to Delete from Wishlist", error.message)
+          }
+        }
+      }
+    
+      const handleAddToCart = async (prodId, isAddToCartBtn = false) => {
+        const product = products.find(prod => prod._id === prodId)
+        try{
+          setMessage("Loading...")
+          if(isAddToCartBtn) {
+            try{
+              await axios.post(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart`, {
+                productId: prodId
+              })
+              setMessage("Added To Cart")
+              setCart(prev => [...prev, {product: product, quantity: 1}])
+            }catch(error){
+              setMessage("Product Already Exists in Cart")
+            }
+            
+          } else {
+            setMessage("Loading...")
+            await axios.delete(`${API_URL}/api/users/68073e3381a7d2e650b55871/cart/${prodId}`)
+            setMessage("Deleted from Cart")
+      
+            setCart(prevCart => prevCart.filter(item => item.product._id !== product._id) )
+          }
+        } catch(error){
+          setMessage(error.message)
         }
     }
 
@@ -122,7 +171,6 @@ const ProductListing = () => {
 
     useEffect(() => {
         if (categoryFromURL && categories.length > 0 && products.length > 0) {
-          // Check if this category actually exists in your list (optional safety)
           const validCategory = categories.some(cat => cat.name === categoryFromURL);
           if (validCategory) {
             setFilter(prev => ({
@@ -175,11 +223,16 @@ const ProductListing = () => {
                         <div className="row">
                             {
                                 (filteredProducts?.length  > 0 && products) ? (
-                                    filteredProducts?.map(product => (
-                                        <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
-                                            <ProductCard product={product}  cart={cart} setCart={setCart} isListingPage={true} wishList={wishList} setWishList={setWishList} setMessage={setMessage} />
+
+                                    filteredProducts?.map(product => {
+                                        const isProductInWishList = wishList?.some(item => item._id === product?._id)
+                                        return (
+                                            <div key={product._id} className="col-md-3 py-2 px-2 d-flex">
+                                            <ProductListingCard product={product} handleAddToCart={handleAddToCart} handleWishList={handleWishList} isProductInWishList={isProductInWishList} />
                                         </div>
-                                    ))
+                                        )
+                                        
+                                    })
                                 ) : <div className="d-flex justify-content-center align-items-center">
                                     {
                                         message === "Loading..." ? "" : <p>No Products Found</p>
