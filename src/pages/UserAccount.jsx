@@ -197,18 +197,18 @@ const fetchCart = async () => {
                             <h5 className="text-center">Add Address</h5>
                         <form onSubmit={handleFormSubmit}>
                         <label htmlFor="" className="form-label">Name: </label>
-                        <input value={addressFormData.name} name="name" type="text" className="form-control" onChange={handleAddressInput} />
+                        <input required value={addressFormData.name} name="name" type="text" className="form-control" onChange={handleAddressInput} />
                         <label htmlFor="" className="form-label" >Street: </label>
-                        <input value={addressFormData.street} name="street" onChange={handleAddressInput}  type="text" className="form-control" />
+                        <input required value={addressFormData.street} name="street" onChange={handleAddressInput}  type="text" className="form-control" />
                         <label htmlFor="" className="form-label">State: </label>
-                        <input value={addressFormData.state} name="state" onChange={handleAddressInput}  type="text" className="form-control" />
+                        <input required value={addressFormData.state} name="state" onChange={handleAddressInput}  type="text" className="form-control" />
 
                         <label htmlFor="" className="form-label">City: </label>
-                        <input value={addressFormData.city} name="city" onChange={handleAddressInput}  type="text" className="form-control" />
+                        <input required value={addressFormData.city} name="city" onChange={handleAddressInput}  type="text" className="form-control" />
                         <label htmlFor="" className="form-label">Pincode: </label>
-                        <input value={addressFormData.pincode} name="pincode" onChange={handleAddressInput}  type="text" className="form-control" />
+                        <input required value={addressFormData.pincode} name="pincode" onChange={handleAddressInput}  type="text" className="form-control" />
                         <label htmlFor="" className="form-label">Phone: </label>
-                        <input value={addressFormData.phone} name="phone" onChange={handleAddressInput}  type="text" className="form-control" />
+                        <input required value={addressFormData.phone} name="phone" onChange={handleAddressInput}  type="text" className="form-control" />
                         <button type="submit" className="btn btn-primary mt-2">Add Address</button>
                     </form>
                         </div>
