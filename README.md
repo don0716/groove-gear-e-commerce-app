@@ -1,4 +1,4 @@
-# 🛍️ Groove-Gear — E-commerce App
+# Groove-Gear — E-commerce App
 
 Welcome to **Groove-Gear**, a full-stack e-commerce application built using **React JS** and **Bootstrap**. This project features a modern UI, dynamic filtering, and complete shopping workflow including cart, wishlist, checkout, and user profile functionality.
 
