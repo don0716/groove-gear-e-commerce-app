@@ -140,7 +140,7 @@ Walkthrough Video of the major features of App: [video link](https://www.loom.co
 
 ---
 API Reference
-[Github Link to API Reference readme of Groove Gear Backend](https://github.com/don0716/groove-gear-ecommerce-backend/tree/main#readme)
+[Github Link to API Reference readme of Groove Gear Backend](https://github.com/don0716/groove-gear-ecommerce-backend/tree/main#readme) <br>
 [BACKEND CODE LINK](https://github.com/don0716/groove-gear-ecommerce-backend/tree/main)
 
 ---
