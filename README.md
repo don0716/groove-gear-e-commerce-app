@@ -3,6 +3,31 @@
 Welcome to **Groove-Gear**, a full-stack e-commerce application built using **React JS** and **Bootstrap**. This project features a modern UI, dynamic filtering, and complete shopping workflow including cart, wishlist, checkout, and user profile functionality.
 
 ---
+### Demo Link
+[live demo](https://groove-gear-e-commerce-app-frontend.vercel.app/)
+
+---
+### Quick Start
+```
+git clone https://github.com/don0716/groove-gear-e-commerce-app.git
+cd <your-repo>
+npm install
+npm run dev # or `npm start` / `yarn dev`
+```
+---
+Demo Video
+Walkthrough Video of the major features of App: [video link]()
+
+---
+
+### Technologies
+- React JS
+- React Router
+- Node JS
+- Express
+- MongoDB
+
+---
 
 ## ✔ PRD Feature Checklist
 
@@ -114,11 +139,13 @@ Welcome to **Groove-Gear**, a full-stack e-commerce application built using **Re
 - [ ] Redux toolkit for state management.
 
 ---
+API Reference
+[Github Link to API Reference readme of Groove Gear Backend](https://github.com/don0716/groove-gear-ecommerce-backend/tree/main#readme)
+[BACKEND CODE LINK](https://github.com/don0716/groove-gear-ecommerce-backend/tree/main)
 
-##   Getting Started
+---
 
-```bash
-git clone https://github.com/your-username/groove-gear.git
-cd groove-gear
-npm install
-npm start
+## Contact
+For bugs or feature request, please reach out to donmonteiro16@gmail.com
+---
+
